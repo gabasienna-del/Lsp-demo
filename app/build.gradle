@@ -6,7 +6,7 @@ plugins {
 android {
     namespace 'com.maco.lasthope'
     compileSdk 34
-    buildToolsVersion '34.0.0' // фиксируем версию build-tools
+    buildToolsVersion '34.0.0'
 
     defaultConfig {
         applicationId "com.maco.lasthope"
@@ -24,7 +24,6 @@ android {
         release {
             minifyEnabled false
             shrinkResources false
-            // строка была обрезана — ставим полный вариант
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
@@ -33,6 +32,7 @@ android {
         sourceCompatibility JavaVersion.VERSION_17
         targetCompatibility JavaVersion.VERSION_17
     }
+
     kotlinOptions {
         jvmTarget = '17'
     }
@@ -48,4 +48,8 @@ dependencies {
 
     implementation "androidx.appcompat:appcompat:1.6.1"
     implementation "androidx.core:core-ktx:1.10.1"
+
+    // Xposed/LSPosed API — только для компиляции (не попадает в APK)
+    // Положи файл xposed-api-82.jar в app/libs/ перед сборкой
+    compileOnly files('libs/xposed-api-82.jar')
 }
