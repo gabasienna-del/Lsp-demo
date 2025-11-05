@@ -26,15 +26,12 @@ jobs:
           sdkmanager --install "platform-tools" "platforms;android-34" "build-tools;34.0.0"
           yes | sdkmanager --licenses
 
-      # Пропустите кеширование Gradle (или отключите его, как указано ниже)
-      # Отключаем кеширование Gradle
+      # Пропускаем кеширование Gradle
       - name: Skip Gradle Cache (Workaround)
-        run: echo "Skipping cache" # Этот шаг отключает кеширование Gradle
+        run: echo "Skipping Gradle cache" # Этот шаг отключает кеширование Gradle
 
-      - name: Gradle cache
-        uses: gradle/actions/setup-gradle@v3
-
-      - name: Build Debug APK
+      # Убедитесь, что нет конфликтов с зависимостями
+      - name: Gradle build
         run: ./gradlew clean assembleDebug --stacktrace --info
 
       - name: Upload APK artifact
